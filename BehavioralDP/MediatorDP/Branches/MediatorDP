@@ -1,0 +1,61 @@
+65 kişiyiz 65 uçak kim önce inecek ortada bir kule var herkesle irtibat halinde kule bunu belirlemeli pilotların birbiri ile iletişime geçmesine gerek yok
+
++ kişiyiz ve herkesin ayrı bir uzmanlık alanı ve ayrı ayrı
+her biri de ortaya kendi uzmanlık alanı ile ilgili bir soru soracak ve cevabını alacak cevabın kimden geldiğini bilmesine gerek yok
+sadece sorusunu sorar ortaya soru sorar ortada tüm kişileri ve uzmanlık alanlarını bilen bir danışmam  var (Mediator)
+ mediator aracı katılımcılar birbirini bilmiyor sadece aracıyı biliyor aracı hepsini biliyor birde topiklerini biliyor
+
+ Peki biz bu Mediator DP yi Spring Boot da nerede kullandık
+ Dispatcher Servlet
+ Dispatcher Servlet (Mediator/Aracı) gelen requesti ilgili Controller a yönlendirir.
+
+ Hangi durumlarda kullanılı benim bir sorum var sorum cevaplansında kimin cevaplayacağı önemli değil
+
+ Class Yapısı
+
+Actor Interface --> Çevredeki kişiler
+2 metodu var receiveMessage(String message)
+             sendMessage(String topic,String message)
+
+Dispatcher Interface--> Dağıtıcı (Aracı)
+1 metodu var  dispatch(String topic,String message)  // dispatch :dağıt
+
+MessageActor Class implements Actor {
+Sting name;
+
+Dispatcher dispatcher;
+
+Bu iki field dan paremetreli Constructor oluştur
+
+Actor I deki metodları override et
+
+}
+
+MessageDispatcher implements Dispatcher {
+
+* Dispatcher actörleri ve topic lerini bilmeli bunun için tüm aktörleri ve topiclerini tutmak için bir map oluşturacağız
+* Tüma aktörlerini ve topiklerini oluşturduğumuz map e  kaydedeceğimiz bir register() methodu yaz (put ile ekleyecez).
+   key: Topic ,value :Actor
+* ovverride edilen dispatch() ile ilgili kişiye dağıtan metodu yaz
+  peki ilgili kişiyi uzmanı nasıl bulacağız elimizde topic olduğuna göre(key) value ye ulaşabiliriz
+
+        registeredActors.get(topic) // map de bize  key i topic olan elemanın valuesini veriri (Actor)
+
+
+Runner Class
+
+Dispatcher ı oluştur
+
+Actor leri oluştur topikler ve dispatcher  ile beraber
+
+Dispatcher a kaydet tüm bu aktörleri (tanıştır)
+
+Son olarak da herhangi bir aktör herhngi bir topcic le ilgili mesaj gönderecek
+
+// oluşan çıktıkda ilgili topic sahibinin cevap verdiğini göreceğiz
+
+
+
+
+
+}
